@@ -1,0 +1,232 @@
+body {
+	background: url(../images/bg.jpg);
+	background-repeat: repeat;
+}
+
+main {
+	margin-top: 50px;
+}
+
+/*http://es.learnlayout.com/position.html*/
+#banner {
+	background: url(../images/banner.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 150px 0;
+	position: relative;
+}
+
+#banner::before {
+    position: absolute;
+    z-index: 1;
+    background: #00e67666;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+}
+
+#banner h1, #banner p {
+	color: #ffffff;
+	z-index: 2;
+	position: relative;
+}
+
+#banner h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 60px;
+	margin: 0;
+    line-height: 1;
+}
+
+#banner p {
+	margin: 0;
+	padding: 0;
+	font-size: 24px;
+	text-align: left;
+	margin-bottom: 0;
+	font-weight: 300;
+	line-height: 1.4;
+}
+
+.titulo {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.subtitulo {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+
+#info {
+	padding: 100px 0;
+}
+
+#info .box {
+	text-align: center;
+}
+
+#info i {
+	font-size: 70px;
+	border-radius: 50%;
+	background-color: #ffffff;
+	border: 2px solid #cccccc;
+	padding: 50px;
+	color: #00e676;
+}
+
+#empresa {
+	background-color: #f0f0f0;
+	padding: 100px 0;
+}
+
+#servicios {
+	padding: 100px 0;
+	background: #ffffff;
+}
+
+#servicios .servicios-box {
+	border: 1px solid #ccc;
+	padding: 15px;
+}
+
+.bg-1 {
+	background: #819bd2;
+}
+
+.bg-2 {
+	background: #2186a4;
+}
+
+.bg-3 {
+	background: #e26070;
+}
+
+#servicios .servicios-box img {
+	width: 100%;
+}
+
+#equipo {
+	padding: 100px 0;
+}
+
+#equipo .box {
+	border: 1px dashed #00e676;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#equipo .box .glyphicon {
+	font-size: 100px;
+	color: #00e676;
+}
+
+#clientes{
+	padding: 100px 0;
+	background: #ffffff;
+}
+
+#clientes .box-clientes {
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+	box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+	padding: 40px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+#clientes .box-clientes img {
+	cursor: pointer;
+	width: 100%;
+	filter: gray;
+	-webkit-filter: grayscale(1);
+	filter: grayscale(1);
+}
+
+#clientes .box-clientes img:hover {
+	-webkit-filter: grayscale(0);
+	filter: none;
+}
+
+#newsletter {
+	background-color: #df0209;
+	padding: 20px 0;
+}
+
+footer {
+	background-color: #2a2730;
+	padding: 30px 0;
+}
+
+footer ul {
+	padding-left: 0;
+	margin-bottom: 20px;
+}
+
+footer li {
+    display: inline-block;
+}
+
+footer li a {
+	color: #ffffff;
+	text-decoration: none;
+	margin-right: 15px;
+}
+
+footer li a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+footer p {
+	margin: 0;
+	padding: 0;
+	color: #99979c;
+}
+
+footer p a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+footer p a:hover {
+	text-decoration: underline;
+	color: #ffffff;
+}
+
+.navbar {
+	margin-bottom: 0;
+	background-color: #ffffff;
+}
+
+.navbar-nav li a {
+	font-size: 16px;
+	color: #888888;
+}
+
+/* INICIO SECTION CONTACTO */
+#contacto {
+	padding: 50px 0;
+}
+
+#contacto .form-control {
+	margin-bottom: 10px;
+	border-radius: 0;
+	border-color: #007bdf;
+}
+
+/* FIN SECTION CONTACTO */
+
+.owl-carousel .item img {
+	width: 100%;
+}
