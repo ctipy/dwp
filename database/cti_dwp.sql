@@ -59,6 +59,7 @@ CREATE TABLE `cms` (
   `name` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
   `active` int(11) NOT NULL,
+  `visible` tinyint(4) DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `videos` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,

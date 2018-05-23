@@ -1,3 +1,8 @@
+<?php
+    // conexion
+    require 'conexion/conexion.php';
+    require 'funciones/funciones.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

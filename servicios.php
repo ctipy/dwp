@@ -1,3 +1,14 @@
+<?php
+    // conexion
+    require 'conexion/conexion.php';
+    require 'funciones/funciones.php';
+
+    // lista servicios
+    $sql_s = "SELECT * FROM servicios WHERE active = 1 AND visible = 1";
+    $query_s = $connection->prepare($sql_s);
+    $query_s->execute();
+    $total_s = $query_s->rowCount();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,23 +33,27 @@
 	<?php include 'include/head.php'; ?>
 	<!-- FIN HEADER -->
 	<main>
-		<section id="servicios">
-			<div class="container">
-				<h2 class="titulo">Titulo de la Sección</h2>
-				<p class="subtitulo">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-				</p>
-				<div class="row">
-					<?php for ($i=1; $i < 4; $i++) { ?>
-						<div class="col-sm-4">
-							<div class="servicios-box bg-<?php echo $i; ?>">
-								<img src="images/servicios/<?php echo $i; ?>.png" alt="Titulo" title="Titulo">
-							</div>
-						</div>
-					<?php } ?>
-				</div>
-			</div>
-		</section>
+        <?php if($total_s > 0) { ?>
+            <section id="servicios">
+                <div class="container">
+                    <h2 class="titulo">Titulo de la Sección</h2>
+                    <p class="subtitulo">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </p>
+
+                    <div class="row">
+                        <?php while ($rows_s = $query_s->fetch()) { ?>
+                            <div class="col-sm-4">
+                                <div class="servicios-box">
+                                    <img src="images/servicios/<?php echo $rows_s['image']; ?>" alt="<?php echo $rows_s['name']; ?>" title="<?php echo $rows_s['name']; ?>">
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                </div>
+            </section>
+        <?php } ?>
 	</main>
 	<!-- INICIO FOOTER -->
 	<?php include 'include/foot.php'; ?>

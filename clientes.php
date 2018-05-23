@@ -1,3 +1,15 @@
+<?php
+    // conexion
+    require 'conexion/conexion.php';
+    require 'funciones/funciones.php';
+
+
+    // lista clientes
+    $sql_c = "SELECT * FROM clientes WHERE destacado = 1 AND active = 1 AND visible = 1";
+    $query_c = $connection->prepare($sql_c);
+    $query_c->execute();
+    $total_c = $query_c->rowCount();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,23 +34,23 @@
 	<?php include 'include/head.php'; ?>
 	<!-- FIN HEADER -->
 	<main>
-		<section id="clientes">
-			<div class="container">
-				<h2 class="titulo">Lista de Clientes</h2>
-				<p class="subtitulo">
-					Estas empresas confían en nuestro trabajo.
-				</p>
-				<div class="row">
-					<?php for ($i=1; $i < 5; $i++) { ?>
-					<div class="col-sm-3">
-						<div class="box-clientes">
-							<img src="images/clientes/<?php echo $i; ?>.png" alt="">
-						</div>
-					</div>
-					<?php } ?>
-				</div>
-			</div>
-		</section>
+        <?php if($total_c > 0) { ?>
+            <section id="clientes">
+                <div class="container">
+                    <div class="row">
+                        <?php while ($rows_c = $query_c->fetch()) { ?>
+                            <div class="col-sm-3">
+                                <div class="box-clientes">
+                                    <a href="<?php echo $rows_c['url']; ?>" target="<?php echo $rows_c['target']; ?>">
+                                        <img src="images/clientes/<?php echo $rows_c['image']; ?>" alt="<?php echo $rows_c['name']; ?>" title="<?php echo $rows_c['name']; ?>">
+                                    </a>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </section>
+        <?php } ?>
 	</main>
 	<!-- INICIO FOOTER -->
 	<?php include 'include/foot.php'; ?>

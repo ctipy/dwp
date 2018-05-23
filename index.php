@@ -2,17 +2,36 @@
 
 	// conexion
 	require 'conexion/conexion.php';
+	require 'funciones/funciones.php';
 	// lista slides
-	$sql = "SELECT * FROM slides WHERE active = 1 and visible = 1";
+	$sql = "SELECT * FROM slides WHERE active = 1 and visible = 1 LIMIT 2";
 	$query = $connection->prepare($sql);
 	$query->execute();
 	$total = $query->rowCount();
 
+    // lista info
+    $sql_i = "SELECT * FROM info WHERE active = 1 AND visible = 1 LIMIT 3";
+    $query_i = $connection->prepare($sql_i);
+    $query_i->execute();
+    $total_i = $query_i->rowCount();
+
+    // lista servicios
+    $sql_s = "SELECT * FROM servicios WHERE active = 1 AND visible = 1 LIMIT 3";
+    $query_s = $connection->prepare($sql_s);
+    $query_s->execute();
+    $total_s = $query_s->rowCount();
+
 	// lista equipo
-	$sql_e = "SELECT * FROM equipo";
+	$sql_e = "SELECT * FROM equipo WHERE active = 1 AND visible = 1";
 	$query_e = $connection->prepare($sql_e);
 	$query_e->execute();
 	$total_e = $query_e->rowCount();
+
+    // lista clientes
+    $sql_c = "SELECT * FROM clientes WHERE destacado = 1 AND active = 1 AND visible = 1";
+    $query_c = $connection->prepare($sql_c);
+    $query_c->execute();
+    $total_c = $query_c->rowCount();
 
 ?>
 <!DOCTYPE html>
@@ -41,6 +60,8 @@
 	<?php include 'include/head.php'; ?>
 	<!-- FIN HEADER -->
 	<main>
+
+        <?php if($total > 0) { ?>
 		<section id="slide">
 			<div class="container-fluid">
 				<div class="row">
@@ -55,7 +76,9 @@
 				</div>
 			</div>
 		</section>
+        <?php } ?>
 
+        <?php if($total_i > 0) { ?>
 		<section id="info">
 			<div class="container">
 				<h2 class="titulo animated bounceInLeft">Titulo de la Sección</h2>
@@ -63,48 +86,16 @@
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 				</p>
 
+                <?php while ($rows_i = $query_i->fetch()) { ?>
 				<div class="col-sm-4 text-center">
-					<i class="glyphicon glyphicon-ok"></i>
-					<h3>Lorem ipsum dolor sit amet</h3>
+					<i class="<?php echo $rows['icon']; ?>"></i>
+					<h3><?php echo $rows_i['name']; ?></h3>
 				</div>
-				<div class="col-sm-4 text-center">
-					<i class="glyphicon glyphicon-ok"></i>
-					<h3>Lorem ipsum dolor sit amet</h3>
-				</div>
-				<div class="col-sm-4 text-center">
-					<i class="glyphicon glyphicon-ok"></i>
-					<h3>Lorem ipsum dolor sit amet</h3>
-				</div>
+                <?php } ?>
 
-				<div class="col-sm-12 text-center">
-					<button type="button" 
-							class="btn btn-success" 
-							data-toggle="modal" 
-							data-target="#modalTeste">
-						Politica del Sitio
-					</button>
-					
-					<!-- MODAL -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-					      </div>
-					      <div class="modal-body">
-					        ...
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				</div>
 			</div>
 		</section>
+        <?php } ?>
 
 		<section id="empresa">
 			<div class="container">
@@ -125,98 +116,81 @@
 			</div>
 		</section>
 
-
+        <?php if($total_s > 0) { ?>
 		<section id="servicios">
 			<div class="container">
 				<h2 class="titulo">Titulo de la Sección</h2>
 				<p class="subtitulo">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 				</p>
+
 				<div class="row">
-					<?php for ($i=1; $i < 4; $i++) { ?>
+                    <?php while ($rows_s = $query_s->fetch()) { ?>
 						<div class="col-sm-4">
-							<div class="servicios-box bg-<?php echo $i; ?>">
-								<img src="images/servicios/<?php echo $i; ?>.png" alt="Titulo" title="Titulo">
+							<div class="servicios-box">
+								<img src="images/servicios/<?php echo $rows_s['image']; ?>" alt="<?php echo $rows_s['name']; ?>" title="<?php echo $rows_s['name']; ?>">
 							</div>
 						</div>
 					<?php } ?>
 				</div>
+
 			</div>
 		</section>
+        <?php } ?>
 
+        <?php if($total_e > 0) { ?>
 		<section id="equipo">
 			<div class="container">
 				<h2 class="titulo">Titulo de la Sección</h2>
 				<p class="subtitulo">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 				</p>
+                <?php while ($rows_e= $query_e->fetch()) { ?>
 				<div class="col-sm-3 text-center">
 					<div class="box">
 						<i class="glyphicon glyphicon-user"></i>
-						<h3>Team 1</h3>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis omnis, commodi alias, sunt voluptatibus hic nisi molestiae.
-						</p>
+						<h3><?php echo $rows_e['name']; ?></h3>
 					</div>
 				</div>
-				<div class="col-sm-3 text-center">
-					<div class="box">
-						<i class="glyphicon glyphicon-user"></i>
-						<h3>Team 1</h3>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis omnis, commodi alias, sunt voluptatibus hic nisi molestiae.
-						</p>
-					</div>
-				</div>
-				<div class="col-sm-3 text-center">
-					<div class="box">
-						<i class="glyphicon glyphicon-user"></i>
-						<h3>Team 1</h3>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis omnis, commodi alias, sunt voluptatibus hic nisi molestiae.
-						</p>
-					</div>
-				</div>
-				<div class="col-sm-3 text-center">
-					<div class="box">
-						<i class="glyphicon glyphicon-user"></i>
-						<h3>Team 1</h3>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis omnis, commodi alias, sunt voluptatibus hic nisi molestiae.
-						</p>
-					</div>
-				</div>
+                <?php } ?>
 			</div>
 		</section>
+        <?php } ?>
 
+        <?php if($total_c > 0) { ?>
 		<section id="clientes">
 			<div class="container">
 				<div class="row">
-					<?php for ($i=1; $i < 5; $i++) { ?>
+                    <?php while ($rows_c = $query_c->fetch()) { ?>
 					<div class="col-sm-3">
 						<div class="box-clientes">
-							<img src="images/clientes/<?php echo $i; ?>.png" alt="">
+                            <a href="<?php echo $rows_c['url']; ?>" target="<?php echo $rows_c['target']; ?>">
+							    <img src="images/clientes/<?php echo $rows_c['image']; ?>" alt="<?php echo $rows_c['name']; ?>" title="<?php echo $rows_c['name']; ?>">
+                            </a>
 						</div>
 					</div>
 					<?php } ?>
 				</div>
 			</div>
 		</section>
+        <?php } ?>
 
+        <div class="msj-newsletter text-center"></div>
 		<section id="newsletter">
 			<div class="container">
 				<div class="row">
 					<form>
 						<div class="col-sm-6 col-sm-offset-3">
-							<input type="text" name="" class="form-control" placeholder="E-mail">
+							<input type="text" name="email" id="email_newsletter" class="form-control" placeholder="E-mail">
 						</div>
 						<div class="col-sm-3">
-							<button class="btn btn-default">Enviar</button>
+							<button class="btn btn-default" type="button" onclick="javascript:newsletter();">Enviar</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</section>
+
 	</main>
 	<!-- INICIO FOOTER -->
 	<?php include 'include/foot.php'; ?>
@@ -235,7 +209,39 @@
                 autoplay: true,
                 autoplayHoverPause:true
               });
-            })
+         })
+
+        function newsletter()
+        {
+            var email = document.getElementById('email_newsletter').value;
+
+            if(email == "")
+            {
+                $('.msj-newsletter').html('<p style="color: red;">Ingrese el E-mail!</p>');
+                document.getElementById('email_newsletter').value = ""
+                document.getElementById('email_newsletter').focus();
+                return false;
+            }
+
+            else
+            {
+                $.ajax({
+                    type:'POST',
+                    url:'newsletter.php',
+                    data:('email=' + email),
+                    success:function(respuesta){
+                        if (respuesta == 1){
+                            $('.msj-newsletter').html('<p style="color: green;">E-mail registrado ;)</p>');
+                            document.getElementById('email_newsletter').value = "";
+                        }
+                        else {
+                            $('.msj-newsletter').html('<p style="color: red;">El e-mail ya fue registrado, Intente con otro.</p>');
+                            document.getElementById('email_newsletter').value = "";
+                        }
+                    }
+                })
+            }
+        }
     </script>
 </body>
 </html>
